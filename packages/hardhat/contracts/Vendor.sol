@@ -21,6 +21,10 @@ contract Vendor is Ownable{
     emit BuyTokens(msg.sender, msg.value, amountOfTokens);
   }
   // ToDo: create a withdraw() function that lets the owner withdraw ETH
+  function withdraw() public onlyOwner {
+    (bool success, ) = owner().call{value: address(this).balance}("");
+    require(success, "Withdrawal failed"); 
+  }
 
   // ToDo: create a sellTokens(uint256 _amount) function:
 }
