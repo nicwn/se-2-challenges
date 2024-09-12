@@ -6,6 +6,7 @@ import "./YourToken.sol";
 
 contract Vendor is Ownable{
   event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+  event SellTokens(address seller, uint256 amountOfTokens, uint256 amountOfETH);
 
   YourToken public gldTokenContract;
   uint256 public constant tokensPerEth = 100;
@@ -27,4 +28,19 @@ contract Vendor is Ownable{
   }
 
   // ToDo: create a sellTokens(uint256 _amount) function:
+  function sellTokens(uint256 amount) public {
+    require(amount > 0, "Must sell a positive amount");
+    uint256 allowance = gldTokenContract.allowance(msg.sender, address(this));
+    require(allowance >= amount, "Check the token allowance");
+    uint256 ethToReturn = amount / tokensPerEth;
+    require(address(this).balance >= ethToReturn, "Vendor has insufficient funds");
+    
+    (bool sent) = gldTokenContract.transferFrom(msg.sender, address(this), amount);
+    require(sent, "Failed to transfer tokens from user to vendor");
+
+    (sent,) = msg.sender.call{value: ethToReturn}("");
+    require(sent, "Failed to send ETH to the user");
+
+    emit SellTokens(msg.sender, amount, ethToReturn);
+  }
 }
