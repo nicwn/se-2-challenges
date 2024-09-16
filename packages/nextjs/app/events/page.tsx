@@ -10,14 +10,14 @@ const Events: NextPage = () => {
   const { data: buyTokenEvents, isLoading: isBuyEventsLoading } = useScaffoldEventHistory({
     contractName: "Vendor",
     eventName: "BuyTokens",
-    fromBlock: 0n,
+    fromBlock: 6701984n,
   });
 
   // SellTokens Events
   const { data: sellTokenEvents, isLoading: isSellEventsLoading } = useScaffoldEventHistory({
     contractName: "Vendor",
     eventName: "SellTokens",
-    fromBlock: 0n,
+    fromBlock: 6701984n,
   });
 
   return (
@@ -67,7 +67,7 @@ const Events: NextPage = () => {
         )}
       </div>
 
-      SellTokens Events
+      {/* SellTokens Events */}
       <div className="mt-14">
         <div className="text-center mb-4">
           <span className="block text-2xl font-bold">Sell Token Events</span>

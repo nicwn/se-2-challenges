@@ -56,7 +56,7 @@ const TokenVendor: NextPage = () => {
               <span className="font-bold ml-1">{yourTokenSymbol}</span>
             </div>
           </div>
-          Vendor Balances
+          {/* Vendor Balances */}
           <hr className="w-full border-secondary my-3" />
           <div>
             Vendor token balance:{" "}
@@ -71,7 +71,7 @@ const TokenVendor: NextPage = () => {
           </div>
         </div>
 
-        Buy Tokens
+        {/* Buy Tokens */}
         <div className="flex flex-col items-center space-y-4 bg-base-100 shadow-lg shadow-secondary border-8 border-secondary rounded-xl p-6 mt-8 w-full max-w-lg">
           <div className="text-xl">Buy tokens</div>
           <div>{tokensPerEth?.toString() || 0} tokens per ETH</div>
@@ -130,7 +130,7 @@ const TokenVendor: NextPage = () => {
           </div>
         )}
 
-        Sell Tokens
+        {/* Sell Tokens */}
         {!!yourTokenBalance && (
           <div className="flex flex-col items-center space-y-4 bg-base-100 shadow-lg shadow-secondary border-8 border-secondary rounded-xl p-6 mt-8 w-full max-w-lg">
             <div className="text-xl">Sell tokens</div>

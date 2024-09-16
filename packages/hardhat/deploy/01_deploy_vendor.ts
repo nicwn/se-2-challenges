@@ -9,6 +9,7 @@ import { Contract } from "ethers";
  * @param hre HardhatRuntimeEnvironment object.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Nick's notes: This function is responsible for deploying the Vendor contract and setting it up
 const deployVendor: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
@@ -21,10 +22,11 @@ const deployVendor: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     You can run the `yarn account` command to check your balance in every network.
   */
   // Deploy Vendor
-  const { deployer } = await hre.getNamedAccounts();
+  const { deployer } = await hre.getNamedAccounts();  // We're using named accounts here, which are defined in the Hardhat config
   const { deploy } = hre.deployments;
-  const yourToken = await hre.ethers.getContract<Contract>("YourToken", deployer);
+  const yourToken = await hre.ethers.getContract<Contract>("YourToken", deployer);  // We're getting the YourToken contract that should have been deployed previously
   const yourTokenAddress = await yourToken.getAddress();
+  // This is where we actually deploy the Vendor contract
   await deploy("Vendor", {
     from: deployer,
     // Contract constructor arguments
@@ -34,12 +36,14 @@ const deployVendor: DeployFunction = async function (hre: HardhatRuntimeEnvironm
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
-  const vendor = await hre.ethers.getContract<Contract>("Vendor", deployer);
+
+  const vendor = await hre.ethers.getContract<Contract>("Vendor", deployer);  // After deployment, we get a reference to the deployed Vendor contract
   const vendorAddress = await vendor.getAddress();
   // Transfer tokens to Vendor
+  // We're transferring tokens to the Vendor contract for initial liquidity
   await yourToken.transfer(vendorAddress, hre.ethers.parseEther("1000"));
   // Transfer contract ownership to your frontend address
-  await vendor.transferOwnership("0x2415b24eE2c3EBE857b72931E8894b5007B59348");
+  await vendor.transferOwnership("0x48Bf488D00FE4C83e803688ffE5532EB83E9a0ff");
 };
 
 export default deployVendor;
