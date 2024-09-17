@@ -2,6 +2,15 @@
 
 ![readme-2](https://github.com/scaffold-eth/se-2-challenges/assets/55535804/b427171f-3f20-41a5-b76f-05d67e2b9959)
 
+## Key Concepts
+🔐 Custom ERC20 token
+🔐 Buy tokens with ETH
+🔐 Sell tokens to get ETH back
+🔐 Owner withdraw ETH from contract
+🔐 In deploy script, deploy token contract first, vendor contract get token's address and transfer initial supply to itself.
+🔐 Transfer contract ownership.
+
+
 🤖 Smart contracts are kind of like "always on" _vending machines_ that **anyone** can access. Let's make a decentralized, digital currency. Then, let's build an unstoppable vending machine that will buy and sell the currency. We'll learn about the "approve" pattern for ERC20s and how contract to contract interactions work.
 
 🏵 Create `YourToken.sol` smart contract that inherits the **ERC20** token standard from OpenZeppelin. Set your token to `_mint()` **1000** (\* 10 \*\* 18) tokens to the `msg.sender`. Then create a `Vendor.sol` contract that sells your token using a payable `buyTokens()` function.
