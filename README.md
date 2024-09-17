@@ -4,12 +4,18 @@
 
 ## Key Concepts
 🔐 Custom ERC20 token
+
 🔐 Buy tokens with ETH
+
 🔐 Sell tokens to get ETH back
+
 🔐 Owner withdraw ETH from contract
+
 🔐 In deploy script, deploy token contract first, vendor contract get token's address and transfer initial supply to itself.
+
 🔐 Transfer contract ownership.
 
+---
 
 🤖 Smart contracts are kind of like "always on" _vending machines_ that **anyone** can access. Let's make a decentralized, digital currency. Then, let's build an unstoppable vending machine that will buy and sell the currency. We'll learn about the "approve" pattern for ERC20s and how contract to contract interactions work.
 
