@@ -2,6 +2,23 @@
 
 **Learn how to use 🏗 Scaffold-ETH 2 to create decentralized applications on Ethereum. 🚀**
 
+## Nick's notes:
+
+This is my fork of Scaffold-Eth2's repo: https://github.com/scaffold-eth/se-2-challenges, which contains Speedrun Ethereum's challenges: https://speedrunethereum.com/
+
+Challenges are stored in branches, you can check out this repo, do a `git fetch --all` and then checkout a branch to work on.
+
+Alternatively, if you want to work on each challenge in a separate folder, you can clone this same repo but into challenge specific folders like this:
+
+```
+git clone https://github.com/nicwn/se-2-challenges.git challenge-3-dice-game
+cd challenge-3-dice-game
+git checkout challenge-3-dice-game
+yarn install
+```
+
+For general instructions on installing Scaffold ETH, see https://docs.scaffoldeth.io/quick-start/installation
+
 ---
 
 ## 🚩 Challenge 0: 🎟 Simple NFT Example
