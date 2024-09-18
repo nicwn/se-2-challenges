@@ -7,9 +7,9 @@
 
 🔐 Buy tokens with ETH
 
-🔐 Sell tokens to get ETH back
-
 🔐 Owner withdraw ETH from contract
+
+🔐 Sell tokens to get ETH back (Approve tokens and transfer)
 
 🔐 In deploy script, deploy token contract first, vendor contract get token's address and transfer initial supply to itself.
 
