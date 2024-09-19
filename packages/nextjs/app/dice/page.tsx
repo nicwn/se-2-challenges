@@ -1,5 +1,6 @@
 "use client";
 
+// Importing necessary hooks and components
 import { useEffect, useRef, useState } from "react";
 import type { NextPage } from "next";
 import { formatEther, parseEther } from "viem";
@@ -13,24 +14,29 @@ import {
 } from "~~/hooks/scaffold-eth";
 import { useWatchBalance } from "~~/hooks/scaffold-eth/useWatchBalance";
 
+// Constants for the game
 const ROLL_ETH_VALUE = "0.002";
-const MAX_TABLE_ROWS = 10;
+const MAX_TABLE_ROWS = 10; // Max number of rows to display in the table
 
+// Main component for the Dice Game page
 const DiceGame: NextPage = () => {
+  // State management using React hooks
   const [rolls, setRolls] = useState<Roll[]>([]);
   const [winners, setWinners] = useState<Winner[]>([]);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const [rolled, setRolled] = useState(false);
   const [isRolling, setIsRolling] = useState(false);
 
+  // Ref for video element
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Custom hooks from Scaffold-ETH that help interact with blockchain contracts
   const { data: riggedRollContract } = useScaffoldContract({ contractName: "RiggedRoll" });
   const { data: riggedRollBalance } = useWatchBalance({
     address: riggedRollContract?.address,
   });
   const { data: prize } = useScaffoldReadContract({ contractName: "DiceGame", functionName: "prize" });
 
+  // Fetching event history for rolls
   const { data: rollsHistoryData, isLoading: rollsHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Roll",
@@ -38,6 +44,7 @@ const DiceGame: NextPage = () => {
     watch: true,
   });
 
+  // Effect hook to update rolls state when new data is available
   useEffect(() => {
     if (
       !rollsHistoryLoading &&
@@ -58,6 +65,7 @@ const DiceGame: NextPage = () => {
     }
   }, [rolls, rollsHistoryData, rollsHistoryLoading]);
 
+  // Fetching event history for winners
   const { data: winnerHistoryData, isLoading: winnerHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Winner",
@@ -65,6 +73,7 @@ const DiceGame: NextPage = () => {
     watch: true,
   });
 
+  // Effect hook to update winners state when new data is available
   useEffect(() => {
     if (
       !winnerHistoryLoading &&
@@ -84,10 +93,12 @@ const DiceGame: NextPage = () => {
     }
   }, [winnerHistoryData, winnerHistoryLoading, winners.length]);
 
+  // Hooks for writing to smart contracts
   const { writeContractAsync: writeDiceGameAsync, isError: rollTheDiceError } = useScaffoldWriteContract("DiceGame");
 
   const { writeContractAsync: writeRiggedRollAsync, isError: riggedRollError } = useScaffoldWriteContract("RiggedRoll");
 
+  // Effect hooks for handling errors and video playback
   useEffect(() => {
     if (rollTheDiceError || riggedRollError) {
       setIsRolling(false);
@@ -102,13 +113,17 @@ const DiceGame: NextPage = () => {
     }
   }, [isRolling]);
 
+  // JSX for rendering the component
   return (
     <div className="py-10 px-10">
+      {/* Grid layout for game components */}
       <div className="grid grid-cols-3 max-lg:grid-cols-1">
+        {/* Roll events component */}
         <div className="max-lg:row-start-2">
           <RollEvents rolls={rolls} />
         </div>
 
+        {/* Main game interface */}
         <div className="flex flex-col items-center pt-4 max-lg:row-start-1">
           <div className="flex w-full justify-center">
             <span className="text-xl"> Roll a 0, 1, 2, 3, 4 or 5 to win the prize! </span>
@@ -146,7 +161,7 @@ const DiceGame: NextPage = () => {
               <Amount amount={Number(riggedRollBalance?.formatted || 0)} showUsdPrice className="text-lg" />
             </div>
           </div>
-          {/* <button
+          <button
             onClick={async () => {
               if (!rolled) {
                 setRolled(true);
@@ -162,7 +177,7 @@ const DiceGame: NextPage = () => {
             className="mt-2 btn btn-secondary btn-xl normal-case font-xl text-lg"
           >
             Rigged Roll!
-          </button> */}
+          </button> 
 
           <div className="flex mt-8">
             {rolled ? (
@@ -185,4 +200,5 @@ const DiceGame: NextPage = () => {
   );
 };
 
+// Exporting the component as the default export
 export default DiceGame;

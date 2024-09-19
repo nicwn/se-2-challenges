@@ -19,12 +19,12 @@ const deployRiggedRoll: DeployFunction = async function (hre: HardhatRuntimeEnvi
 
   const riggedRoll: RiggedRoll = await ethers.getContract("RiggedRoll", deployer);
 
-  // Please replace the text "Your Address" with your own address.
-  // try {
-  //   await riggedRoll.transferOwnership("Your Address");
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  // Transfer ownership to my frontend address
+  try {
+    await riggedRoll.transferOwnership("0x2415b24eE2c3EBE857b72931E8894b5007B59348");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default deployRiggedRoll;

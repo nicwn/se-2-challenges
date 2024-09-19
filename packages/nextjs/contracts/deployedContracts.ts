@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     DiceGame: {
-      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      address: "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
       abi: [
         {
           inputs: [],
@@ -77,6 +77,44 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "playerPaid",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "playerWon",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "prize",
           outputs: [
@@ -104,7 +142,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     RiggedRoll: {
-      address: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      address: "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
       abi: [
         {
           inputs: [
@@ -116,6 +154,25 @@ const deployedContracts = {
           ],
           stateMutability: "nonpayable",
           type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "depositor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "FundsDeposited",
+          type: "event",
         },
         {
           anonymous: false,
@@ -137,6 +194,32 @@ const deployedContracts = {
           type: "event",
         },
         {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "isWin",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "roll",
+              type: "uint256",
+            },
+          ],
+          name: "RiggedRollResult",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "depositEther",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "diceGame",
           outputs: [
@@ -144,6 +227,19 @@ const deployedContracts = {
               internalType: "contract DiceGame",
               name: "",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getBalance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
             },
           ],
           stateMutability: "view",
@@ -170,6 +266,13 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [],
+          name: "riggedRoll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "address",
@@ -181,6 +284,10 @@ const deployedContracts = {
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
         },
       ],
       inheritedFunctions: {

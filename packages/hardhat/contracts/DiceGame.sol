@@ -8,6 +8,10 @@ contract DiceGame {
   uint256 public nonce = 0;  // Nonce of the contract, used in rollTheDice() to add randomness
   uint256 public prize = 0;  // The current prize amount
 
+  // Mappings to track player payments and winnings
+  mapping(address => uint256) public playerPaid;
+  mapping(address => uint256) public playerWon;
+
   // Custom error for insufficient ether sent
   error NotEnoughEther();
 
@@ -31,6 +35,9 @@ contract DiceGame {
     if (msg.value < 0.002 ether) {
       revert NotEnoughEther();
     }
+
+    // Update player's total paid amount
+    playerPaid[msg.sender] += msg.value;
 
     // Generate a pseudo-random number for the dice roll
     bytes32 prevHash = blockhash(block.number - 1);  // Get the hash of the previous block
@@ -57,6 +64,9 @@ contract DiceGame {
     uint256 amount = prize;
     (bool sent, ) = msg.sender.call{value: amount}("");  // Send the prize to the winner
     require(sent, "Failed to send Ether");
+
+    // Update player's total won amount
+    playerWon[msg.sender] += amount;
 
     resetPrize();  // Reset the prize for the next game
     emit Winner(msg.sender, amount);  // Emit a Winner event
