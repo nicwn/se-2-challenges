@@ -8,7 +8,7 @@ contract DiceGame {
   uint256 public nonce = 0;  // Nonce of the contract, used in rollTheDice() to add randomness
   uint256 public prize = 0;  // The current prize amount
 
-  // Mappings to track player payments and winnings
+  // My new mappings to track player payments and winnings
   mapping(address => uint256) public playerPaid;
   mapping(address => uint256) public playerWon;
 
@@ -18,6 +18,7 @@ contract DiceGame {
   // Events to log important actions
   event Roll(address indexed player, uint256 amount, uint256 roll);
   event Winner(address winner, uint256 amount);
+  // add events for playerPaid and playerWon
 
   // Constructor function, called when deploying the contract
   constructor() payable {
@@ -36,9 +37,6 @@ contract DiceGame {
       revert NotEnoughEther();
     }
 
-    // Update player's total paid amount
-    playerPaid[msg.sender] += msg.value;
-
     // Generate a pseudo-random number for the dice roll
     bytes32 prevHash = blockhash(block.number - 1);  // Get the hash of the previous block
     bytes32 hash = keccak256(abi.encodePacked(prevHash, address(this), nonce));  // Create a unique hash
@@ -51,6 +49,11 @@ contract DiceGame {
 
     nonce++;  // Increment the nonce for future rolls
     prize += ((msg.value * 40) / 100);  // Add 40% of the bet to the prize pool
+
+    // Update mappings for player's total paid amount
+    playerPaid[msg.sender] += msg.value;
+
+    // Emit an event with the player's total paid amount
 
     // Emit an event with roll details
     emit Roll(msg.sender, msg.value, roll);
@@ -67,6 +70,8 @@ contract DiceGame {
 
     // Update player's total won amount
     playerWon[msg.sender] += amount;
+
+    // Emit an event with the player's total won amount
 
     resetPrize();  // Reset the prize for the next game
     emit Winner(msg.sender, amount);  // Emit a Winner event
