@@ -40,7 +40,7 @@ const DiceGame: NextPage = () => {
   const { data: rollsHistoryData, isLoading: rollsHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Roll",
-    fromBlock: 0n,
+    fromBlock: 6737726n,
     watch: true,
   });
 
@@ -69,7 +69,7 @@ const DiceGame: NextPage = () => {
   const { data: winnerHistoryData, isLoading: winnerHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Winner",
-    fromBlock: 0n,
+    fromBlock: 6737726n,
     watch: true,
   });
 

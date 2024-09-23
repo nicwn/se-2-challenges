@@ -8,6 +8,13 @@
 
 🔐 Copy another contract's logic and only call that contract's function if result is favorable.
 
+🔐 Transfer ownership in deployment
+
+🔐 Withdraw ETH by owner to any address
+
+RiggedRoll deployed to [0x407583F926e8A1b34161Fb706c1F720E7169D6E8](https://sepolia.etherscan.io/address/0x407583F926e8A1b34161Fb706c1F720E7169D6E8#code)
+
+App deployed at: https://nextjs-kfpe5izn5-nicwns-projects.vercel.app
 
 ---
 
