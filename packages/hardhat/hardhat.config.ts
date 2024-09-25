@@ -41,6 +41,9 @@ const config: HardhatUserConfig = {
     // View the networks that are pre-configured.
     // If the network you are looking for is not here you can add new network settings
     hardhat: {
+      gasPrice: "auto", // Set gas price to zero for local testing
+      gas: "auto", // Hardhat will automatically estimate gas limit
+      blockGasLimit: 12000000, // High block gas limit to avoid unnecessary errors
       mining: {
         auto: true,
         interval: 1000,
