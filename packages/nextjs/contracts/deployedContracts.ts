@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     DiceGame: {
-      address: "0x172076E0166D1F9Cc711C77Adf8488051744980C",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [],
@@ -18,6 +18,44 @@ const deployedContracts = {
           inputs: [],
           name: "NotEnoughEther",
           type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "player",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "playerPaid",
+              type: "uint256",
+            },
+          ],
+          name: "PlayerPaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "player",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "totalWon",
+              type: "uint256",
+            },
+          ],
+          name: "PlayerWon",
+          type: "event",
         },
         {
           anonymous: false,
@@ -142,7 +180,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     RiggedRoll: {
-      address: "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [

@@ -19,6 +19,8 @@ contract DiceGame {
   event Roll(address indexed player, uint256 amount, uint256 roll);
   event Winner(address winner, uint256 amount);
   // add events for playerPaid and playerWon
+  event PlayerPaid(address indexed player, uint256 playerPaid);
+  event PlayerWon(address indexed player, uint256 totalWon); 
 
   // Constructor function, called when deploying the contract
   constructor() payable {
@@ -50,10 +52,14 @@ contract DiceGame {
     nonce++;  // Increment the nonce for future rolls
     prize += ((msg.value * 40) / 100);  // Add 40% of the bet to the prize pool
 
-    // Update mappings for player's total paid amount
+    // Update player payment
     playerPaid[msg.sender] += msg.value;
 
-    // Emit an event with the player's total paid amount
+    // Emit PlayerPaid event
+    emit PlayerPaid(msg.sender, playerPaid[msg.sender]);
+
+    // Update mappings for player's total paid amount
+    playerPaid[msg.sender] += msg.value;
 
     // Emit an event with roll details
     emit Roll(msg.sender, msg.value, roll);
@@ -68,13 +74,14 @@ contract DiceGame {
     (bool sent, ) = msg.sender.call{value: amount}("");  // Send the prize to the winner
     require(sent, "Failed to send Ether");
 
-    // Update player's total won amount
+    // Update player winnings
     playerWon[msg.sender] += amount;
 
-    // Emit an event with the player's total won amount
+    // Emit PlayerWon and Winner events
+    emit PlayerWon(msg.sender, playerWon[msg.sender]);
+    emit Winner(msg.sender, amount);
 
     resetPrize();  // Reset the prize for the next game
-    emit Winner(msg.sender, amount);  // Emit a Winner event
   }
 
   // Function to receive Ether. msg.data must be empty

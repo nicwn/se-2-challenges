@@ -21,7 +21,7 @@ const deployRiggedRoll: DeployFunction = async function (hre: HardhatRuntimeEnvi
 
   // Transfer ownership to my frontend address
   try {
-    await riggedRoll.transferOwnership("0xD00B9215e7f45c2198d4e1f9b1d1F45dE6aFfd99");
+    await riggedRoll.transferOwnership("0xDF3B2fDf94740246Aa5447a53CEc412dA9b27337");
   } catch (err) {
     console.log(err);
   }
