@@ -18,6 +18,28 @@ App deployed at: https://nextjs-kfpe5izn5-nicwns-projects.vercel.app
 
 ---
 
+## TODO:Adding 2 leaderboards on the dice page:
+
+It would be nice for the users to see a listing of all the players ranked by who has played (paid) the most, and who are the top winners. This will require implement some new mappings to keep track of addresses => amount key value pairs.
+
+1. Add new playerPaid and playerWon mappings to DiceGame.sol.
+
+2. Verify Contract ABI has new PlayerPaid, PlayerWon events.
+
+  - This is what allow the frontend to recognize and interact with these new events. Once deployed, verify in: hardhat/artifacts/contracts/DiceGame.sol/DiceGame.json; and on the frontend: nextjs/app/contracts/deployedContracts.ts
+
+3. Set up Event Listeners
+
+  - In the dice/page.tsx file, add new useScaffoldEventHistory hooks for PlayerPaid and PlayerWon events, similar to how Roll and Winner events are currently handled.
+
+4. Update Frontend to Display Data
+
+  - Create new state variables to store the PlayerPaid and PlayerWon data.
+  - Add useEffect hooks to update these state variables when new event data is received.
+  - Create new UI components to display the PlayerPaid data under the RollEvents component and the PlayerWon data under the WinnerEvents component.
+
+---
+
 > 🎰 Randomness is tricky on a public deterministic blockchain. The block hash is an easy to use, but very weak form of randomness. This challenge will give you an example of a contract using block hash to create random numbers. This randomness is exploitable. Other, stronger forms of randomness include commit/reveal schemes, oracles, or VRF from Chainlink.
 
 > 👍 One day soon, randomness will be built into the Ethereum protocol!
